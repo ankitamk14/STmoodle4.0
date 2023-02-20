@@ -30,7 +30,7 @@ require_once($CFG->dirroot.'/mod/quiz/locallib.php');
 require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->dirroot . '/course/format/lib.php');
 
-update_attendance_sql = "update events_testattendance set status = 3, mdlgrade= ? where mdluser_id = ? and mdlcourse_id = ? and mdlquiz_id = ? and mdlattempt_id=? and status = 2";
+$update_attendance_sql = "update events_testattendance set status = 3, mdlgrade= ? where mdluser_id = ? and mdlcourse_id = ? and mdlquiz_id = ? and mdlattempt_id=? and status = 2";
 
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or ...
 $q = optional_param('q',  0, PARAM_INT);  // Quiz ID.
