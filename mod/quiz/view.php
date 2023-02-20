@@ -30,6 +30,8 @@ require_once($CFG->dirroot.'/mod/quiz/locallib.php');
 require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->dirroot . '/course/format/lib.php');
 
+update_attendance_sql = "update events_testattendance set status = 3, mdlgrade= ? where mdluser_id = ? and mdlcourse_id = ? and mdlquiz_id = ? and mdlattempt_id=? and status = 2";
+
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or ...
 $q = optional_param('q',  0, PARAM_INT);  // Quiz ID.
 
@@ -225,10 +227,10 @@ if(!empty($viewobj->attempts)) {
             $count = $result->num_rows;
 
             if ($count) {
-
-                $sql = "update events_testattendance set status = 3, mdlgrade= ".$viewobj->mygrade." where mdluser_id = ".$USER->id." and mdlcourse_id = ".$quiz->course." and mdlquiz_id = ".$quiz->id." and mdlattempt_id=".$a->id." and status = 2";
-
-                $result = $mysqli->query($sql);
+                /* where you run the query */
+                $stmt = $mysqli->prepare($update_attendance_sql);
+                $stmt->bind_param("diiii", $viewobj->mygrade, $USER->id, $quiz->course, $quiz->id, $a->id);
+                $result = $stmt->execute();
             }
         }
     }

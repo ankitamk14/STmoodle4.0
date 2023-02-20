@@ -29,6 +29,9 @@
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
+
+$UPDATE_MDLUSER = "update events_testattendance set status = 2, mdlattempt_id = ?, mdluser_firstname = ?, mdluser_lastname = ? where mdluser_id = ? and mdlcourse_id = ? and mdlquiz_id = ?";
+
 // Get submitted parameters.
 $id = required_param('cmid', PARAM_INT); // Course module id
 $forcenew = optional_param('forcenew', false, PARAM_BOOL); // Used to force a new preview
@@ -122,11 +125,12 @@ global $USER;
 include('spoken-config.php');
 
 
-$sql = "update events_testattendance set status = 2, mdlattempt_id = ".$attempt->id.", mdluser_firstname='".$USER->firstname."', mdluser_lastname = '".$USER->lastname."' where mdluser_id = ".$USER->id." and mdlcourse_id = ".$cm->course." and mdlquiz_id = ".$attempt->quiz;
+/* where you run the query */
+$stmt = $mysqli->prepare($UPDATE_MDLUSER);
+$stmt->bind_param("issiii", $attempt->id, $USER->firstname, $USER->lastname, $USER->id, $cm->course, $attempt->quiz);
+$result = $stmt->execute();
 
 
-
-$result = $mysqli->query($sql);
 /* Custom code ends */
 
 // Redirect to the attempt page.
