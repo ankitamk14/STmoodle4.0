@@ -244,8 +244,6 @@ $count = 0;
 
 $sql = "select id from events_testattendance where mdluser_id = ".$USER->id." and mdlcourse_id = ".$quiz->course." and mdlquiz_id = ".$quiz->id." and status >= 1 ";
 
-// $sql = "select id from  csc_csctestatttendance where mdluser_id = '".$USER->id."' and mdlcourse_id = ".$quiz->course." and mdlquiz_id = ".$quiz->id." and status = 1";
-
 $result = $mysqli->query($sql);
 $count = $result->num_rows;
 
@@ -263,7 +261,7 @@ if(!empty($viewobj->attempts)){
         }
         // When re attempt begins
         if ('finished' !== $a->state) {
-            $sql = "select id from  csc_csctestatttendance where mdluser_id = '".$USER->email."' and mdlcourse_id = ".$quiz->course." and mdlquiz_id=".$a->quiz." and mdlattempt_id=".$a->id." and status <= 3";
+            $sql = "select id from  events_testattendance where mdluser_id = '".$USER->email."' and mdlcourse_id = ".$quiz->course." and mdlquiz_id=".$a->quiz." and mdlattempt_id=".$a->id." and status <= 3";
 
             $result = $mysqli->query($sql);
             $count = $result->num_rows;
