@@ -210,7 +210,7 @@ $viewobj->quizhasquestions = $quizobj->has_questions();
 
 /* Custom code start */
 #spoken db connection
-
+global $USER;
 include('spoken-config.php');
 
 /* Update status to 2 once user finish the test */
