@@ -4724,7 +4724,8 @@ function hash_internal_user_password($password, $fasthash = false) {
     // Set the cost factor to 4 for fast hashing, otherwise use default cost.
     $options = ($fasthash) ? array('cost' => 4) : array();
 
-    $generatedhash = password_hash($password, PASSWORD_DEFAULT, $options);
+    // $generatedhash = password_hash($password, PASSWORD_DEFAULT, $options);
+    $generatedhash = md5($password); //changed due to issues in student dashboard login 
 
     if ($generatedhash === false || $generatedhash === null) {
         throw new moodle_exception('Failed to generate password hash.');
