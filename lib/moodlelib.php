@@ -4725,7 +4725,8 @@ function hash_internal_user_password($password, $fasthash = false) {
     $options = ($fasthash) ? array('cost' => 4) : array();
 
     // $generatedhash = password_hash($password, PASSWORD_DEFAULT, $options);
-    $generatedhash = md5($password); //changed due to issues in student dashboard login 
+    $salt = $CFG->passwordsaltmain;
+    $generatedhash = md5($password . $salt); //changed due to issues in student dashboard login 
 
     if ($generatedhash === false || $generatedhash === null) {
         throw new moodle_exception('Failed to generate password hash.');

@@ -983,7 +983,8 @@ function user_add_password_history($userid, $password) {
     $record = new stdClass();
     $record->userid = $userid;
     // $record->hash = password_hash($password, PASSWORD_DEFAULT);
-    $record->hash = md5($password); //changed due to issues in student dashboard login 
+    $salt = $CFG->passwordsaltmain;
+    $record->hash = md5($password . $salt); //changed due to issues in student dashboard login 
     $record->timecreated = time();
     $DB->insert_record('user_password_history', $record);
 

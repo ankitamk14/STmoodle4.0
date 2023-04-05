@@ -368,7 +368,8 @@ class db_test extends \advanced_testcase {
         set_config('passtype', 'saltedcrypt', 'auth_db');
         $auth->config->passtype = 'saltedcrypt';
         // $user3->pass = password_hash('heslo', PASSWORD_BCRYPT); 
-        $user3->pass = md5('heslo');
+        $salt = $CFG->passwordsaltmain;
+        $user3->pass = md5('heslo' . $salt);
         $DB->update_record('auth_db_users', $user3);
         $this->assertTrue($auth->user_login('u3', 'heslo'));
 
