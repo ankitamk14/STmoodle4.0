@@ -271,7 +271,7 @@ if(!empty($viewobj->attempts)){
 }
 
 
-if($count){
+if($count || $quiz->course == 7){
     /* original data  start */
 
     $viewobj->preventmessages = array();
